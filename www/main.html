@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+MakerFaireApp - Main.html
+-->
+<html>
+    <body>
+        <!-- Keep all page content within the page-content inset div! -->
+          <div class="row">
+            <div class="col-md-12">
+            <p class="lead">
+                <div clas="text-center"><img class="img-responsive" src="img/indeximg-or.jpg"</div>
+            </p>
+            </div>
+              <h3>Últimas Noticias</h3>
+            <div class="col-md-12">
+                <ul id="last-news" class="list-unstyled well"></ul>
+            </div>
+          </div>
+        <script>
+            $(document).ready(function(){
+                parseRSS("http://makerfairesantiago.com/feed/",lastNews);
+            });
+            
+            function changeHTML(text){
+                //Transformar a objecto jQuery
+                var wrapper = $("<div>" + text + "</div>");
+                
+                //Reemplazar videos
+                var selector = "iframe";
+                wrapper.find(selector).each(function(){
+                    $(this).after('<a href="'+ $(this).attr("src") +'">' +
+                                    '<button type="button" class="btn btn-danger">Revisa el video</button>' +
+                                   '</a>');
+                });
+                wrapper.find(selector).remove();
+                
+                //Agregar responsive image
+                var selector = "img";
+                wrapper.find(selector).each(function(){
+                    $(this).addClass("img-responsive");
+                });
+
+                //Retornar
+                return wrapper.html();
+            }
+            
+            function lastNews(news){
+                var entries = news.entries;
+                var count = 3;
+                $(entries).each(function(i,entry){
+                    if(i < 3){
+                        var dt = new Date(entry.publishedDate);
+                        var dtf =  dt.getDate() + "-" +  parseInt(dt.getMonth() + 1) + "-" + dt.getFullYear();
+                        
+                        //Se elimina cualquier video embebido
+                        $("<li></li>", {
+                            "html": '<div class="panel panel-info">' 
+                                    + '<div class="panel-heading"><ul class="list-inline">'
+                                    + '<li><h4 class="panel-title">' + entry.title  + "</h4></li>"
+                                    + '<li><h5><span class="label label-primary">' + dtf + " por " + entry.author + "</span></h5></li>"
+                                    + "</ul></div>"
+                                    + '<div class="panel-body">' + changeHTML(entry.content) +'</div>'
+                        }).appendTo("#last-news");
+                    }
+                });
+            }
+
+            function parseRSS(url, callback) {
+                $.ajax({
+                  url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(url),
+                  dataType: 'json',
+                  success: function(data) {
+                    callback(data.responseData.feed);
+                  }
+                });
+            }
+        </script>
+    </body>
+</html>
