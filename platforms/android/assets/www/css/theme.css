@@ -17,7 +17,7 @@ and open the template in the editor.
   margin-left: -250px;
   left: 250px;
   width: 250px;
-  background: #000;
+  background: #141D42;
   position: fixed;
   height: 100%;
   overflow-y: auto;
@@ -39,7 +39,7 @@ and open the template in the editor.
 }
 
 .sidebar-nav li {
-  line-height: 40px;
+  line-height: 60px;
   text-indent: 20px;
 }
 
@@ -61,8 +61,8 @@ and open the template in the editor.
 }
 
 .sidebar-nav > .sidebar-brand {
-  height: 88px;
-  line-height: 88px;
+  height: 65px;
+  line-height: 60px;
   font-size: 18px;
 }
 
@@ -80,7 +80,8 @@ and open the template in the editor.
   line-height: 65px;
 }
 
-.content-header h1 {
+.content-header h1, .content-header h2, .content-header h3, .content-header h4, 
+.content-header h5, .content-header h6 {
   margin: 0;
   margin-left: 20px;
   line-height: 60px;
@@ -117,15 +118,24 @@ and open the template in the editor.
 }
 
 #menu-toggle {
+  margin-left: 10px;
   display: inline-block;
+}
+
+#menu-toggle button{
+    background: transparent;
+    margin-top: -10px;
+    border: 0px solid;
+    box-shadow: none;
+    -webkit-box-shadow: none;
 }
 
 .inset {
   padding: 15px;
 }
 
-#info{
-    color: deepskyblue;
+#info b{
+    color: darkturquoise;
 }
 
 }

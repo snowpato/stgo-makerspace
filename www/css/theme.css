@@ -80,7 +80,8 @@ and open the template in the editor.
   line-height: 65px;
 }
 
-.content-header h1 {
+.content-header h1, .content-header h2, .content-header h3, .content-header h4, 
+.content-header h5, .content-header h6 {
   margin: 0;
   margin-left: 20px;
   line-height: 60px;
@@ -121,9 +122,16 @@ and open the template in the editor.
   display: inline-block;
 }
 
+#news {
+    visibility: hidden;
+}
+
 #menu-toggle button{
     background: transparent;
-    margin-top: -20px;
+    margin-top: -10px;
+    border: 0px solid;
+    box-shadow: none;
+    -webkit-box-shadow: none;
 }
 
 .inset {

@@ -11,21 +11,81 @@ MakerFaireApp - Main.html
                 <div clas="text-center"><img class="img-responsive" src="img/indeximg-or.jpg"</div>
             </p>
             </div>
+              <h3>Últimas Noticias</h3>
             <div class="col-md-12">
-              <p class="well"></p>
-            </div>
-            <div class="col-md-6">
-              <p class="well">But the full-width layout means that you wont be using containers.</p>
-            </div>
-            <div class="col-md-4">
-              <p class="well">Three Column Example</p>
-            </div>
-            <div class="col-md-4">
-              <p class="well">Three Column Example</p>
-            </div>
-            <div class="col-md-4">
-              <p class="well">You get the idea! Do whatever you want in the page content area!</p>
+                <ul id="last-news" class="list-unstyled well"></ul>
             </div>
           </div>
+        <script>
+            $(document).ready(function(){
+                parseRSS("http://makerfairesantiago.com/feed/",lastNews);
+            });
+            
+            function changeHTML(text){
+                //Transformar a objecto jQuery
+                var wrapper = $("<div>" + text + "</div>");
+                
+                //Reemplazar videos
+                var selector = "iframe";
+                wrapper.find(selector).each(function(){
+                    $(this).after('<a href="'+ $(this).attr("src") +'">' +
+                                    '<button type="button" class="btn btn-danger">Revisa el video</button>' +
+                                   '</a>');
+                });
+                wrapper.find(selector).remove();
+                
+                //Agregar responsive image
+                var selector = "img";
+                wrapper.find(selector).each(function(){
+                    $(this).addClass("img-responsive");
+                });
+
+                //Retornar
+                return wrapper.html();
+            }
+            
+            function lastNews(news){
+                var entries = news.entries;
+                var count = 3;
+                $(entries).each(function(i,entry){
+                    if(i < 3){
+                        var dt = new Date(entry.publishedDate);
+                        var dtf =  dt.getDate() + "-" +  parseInt(dt.getMonth() + 1) + "-" + dt.getFullYear();
+                        
+                        //Se elimina cualquier video embebido
+                        $("<li></li>", {
+                            "html": '<div class="panel panel-info">' 
+                                    + '<div class="panel-heading"><ul class="list-inline">'
+                                    + '<li><h4 class="panel-title">' + entry.title  + "</h4></li>"
+                                    + '<li><h5><span class="label label-primary">' + dtf + " por " + entry.author + "</span></h5></li>"
+                                    + "</ul></div>"
+                                    + '<div class="panel-body">' + changeHTML(entry.content) +'</div>'
+                        }).appendTo("#last-news");
+                    }
+                });
+            }
+
+            function parseRSS(url, callback) {
+                $.ajax({
+                    url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(url),
+                    dataType: 'json',
+                    crossdomain: true,
+                    type: 'GET',
+                    beforeSend: function(){
+                        $.mobile.loading('show');
+                    },
+                    success: function(data) {
+                      callback(data.responseData.feed);
+                      $.mobile.loading('hide');
+                    },
+                    complete: function(){
+                        $.mobile.loading('hide');
+                    },
+                    error: function(a, b){
+                        alert(a + ":" + b);
+                    }
+                });
+            }
+        </script>
     </body>
 </html>

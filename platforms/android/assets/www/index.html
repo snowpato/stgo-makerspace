@@ -25,27 +25,29 @@
       <div id="sidebar-wrapper">
         <ul id="menu" class="sidebar-nav">
             <li class="sidebar-brand label-primary">
-                <a href="main.html">
-                    <div style="height:60px"><img class="img-responsive" src="img/sidebar-logo.png" /></div>
-                </a>
+                <div class="text-center">
+                    <a href="main.html">
+                        <img src="img/sidebar-logo.png" />
+                    </a>
+                </div>
             </li>
-          <li><a href="#">
+          <li><a href="schedule.html">
                   <span class="glyphicon glyphicon-calendar"></span>
                   Programación
             </a></li>
-          <li><a href="#">
+          <li><a href="exhibits.html">
                   <span class="glyphicon glyphicon-eye-open"></span>
                   Exhibiciones
             </a></li>
-          <li><a href="#">
+          <li><a href="makers.html">
                   <span class="glyphicon glyphicon-user"></span>
                   Makers
               </a></li>
-          <li><a href="#">
+          <li><a href="map.html">
                   <span class="glyphicon glyphicon-pushpin"></span>
                   Mapa
               </a></li>
-          <li><a href="#">
+          <li><a href="favorites.html">
                   <span class="glyphicon glyphicon-star"></span>
                   Favoritos
           </a></li>
@@ -53,7 +55,7 @@
                   <span class="glyphicon glyphicon-info-sign"></span>
                   Sobre el Evento
               </a></li>
-          <li><a href="#">
+          <li><a href="spec.html">
                   <span class="glyphicon glyphicon-heart"></span>
                   Sobre la App
               </a></li>
@@ -63,8 +65,12 @@
       <!-- Page content -->
       <div id="page-content-wrapper">
         <div class="content-header btn-info">
-                <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
-                <h1>Mini Maker Faire 2013</h1>
+                <a id="menu-toggle" href="#">
+                    <button class="btn btn-lg btn-primary">
+                        <span class="glyphicon glyphicon-align-justify"></span>
+                    </button>
+                </a>
+            <h3>Mini Maker Faire</h3>
         </div>
         <div id="page-view" class="page-content inset"></div>
       </div>
@@ -74,17 +80,35 @@
     <!-- Bootstrap core JavaScript -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/libs/jquery/jquery.min.js"></script>
+    <script>
+        $(document).bind("mobileinit",function(){
+            $.support.cors = true;
+            $.mobile.allowCrossDomainPages = true; 
+        });
+    </script>
+    <script src="js/libs/jquery-mobile/jquery.mobile.js"></script>
     <script src="js/libs/twitter-bootstrap/bootstrap.js"></script>
     <!-- Put this into a custom JavaScript file to make things more organized -->
     <script>
     //<SidebarFunction>
     $(document).ready(function(){
         $("#page-view").load("main.html"); //Init
-        
+        $("#wrapper").removeClass("active");
+
         $("#menu a").click(function(e){
             e.preventDefault();
-            $("#wrapper").toggleClass("active");
-            $("#page-view").load($(this).attr("href"));
+            var link = $(this).attr("href");
+            
+            $.ajax({
+                url: link,
+                beforeSend: function(){
+                    $("#wrapper").toggleClass("active");
+                },
+                success: function(data){
+                    $("#page-view").html(data);
+                }
+            });
+            
         });
     });
     //</SidebarFunction>

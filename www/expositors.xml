@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<expositores>
+    <expositor>
+        <nombre>Aldeo</nombre>
+        <descr>
+            Aldeo es una iniciativa de diseño de la mano de la más 
+            alta tecnología existente hasta el momento para el prototipado, 
+            la impresión 3D.
+            Hacemos accesorios, objetos de diseño para el cuerpo, 
+            nuestra propuesta de exclusividad no pasa por precios 
+            si no por la rapidez de las personas en adquirir 
+            nuestras propuestas que irán cambiando cada un corto tiempo. 
+            Queremos seguir explorando formas nuevas y abarcando cada vez 
+            más espacios con esta tecnología que nos permite el on demand.
+        </descr>
+        <media>
+            <url tipo="foto">http://makerfairesantiagodotcom1.files.wordpress.com/2013/10/aldeo-14-rojo1.jpg</url>
+            <url tipo="foto">http://makerfairesantiagodotcom1.files.wordpress.com/2013/10/aldeo-16-6.jpg</url>
+            <url tipo="foto">http://makerfairesantiagodotcom1.files.wordpress.com/2013/10/aldeo-7-azul1.jpeg</url>
+            <url tipo="video">http://vimeo.com/71530649</url>
+        </media>
+        <social>
+            <url tipo="facebook">www.facebook.com/aldeojoyas3d</url>
+            <url tipo="twitter"></url>
+            <url tipo="tumblr"></url>
+            <url tipo="pinterest">www.pinterest.com/aldeo/aldeo-joyas-3d/</url>
+            <url tipo="flickr"></url>
+            <url tipo="mail"></url>
+            <url tipo="www">www.aldeo.cl</url>
+        </social>
+    </expositor>
+</expositores>

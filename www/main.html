@@ -7,18 +7,20 @@ MakerFaireApp - Main.html
         <!-- Keep all page content within the page-content inset div! -->
           <div class="row">
             <div class="col-md-12">
-            <p class="lead">
-                <div clas="text-center"><img class="img-responsive" src="img/indeximg-or.jpg"</div>
-            </p>
+                <p class="lead">
+                    <div clas="text-center"><img class="img-responsive" src="img/indeximg-or.jpg"</div>
+                </p>
             </div>
-              <h3>Últimas Noticias</h3>
-            <div class="col-md-12">
-                <ul id="last-news" class="list-unstyled well"></ul>
+            <div id="news">
+                <h3>Últimas Noticias</h3>
+                <div class="col-md-12">
+                    <ul id="last-news" class="list-unstyled well"></ul>
+                </div>
             </div>
           </div>
         <script>
             $(document).ready(function(){
-                parseRSS("http://makerfairesantiago.com/feed/",lastNews);
+                //parseRSS("http://makerfairesantiago.com/feed/",lastNews);
             });
             
             function changeHTML(text){
@@ -67,11 +69,22 @@ MakerFaireApp - Main.html
 
             function parseRSS(url, callback) {
                 $.ajax({
-                  url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(url),
-                  dataType: 'json',
-                  success: function(data) {
-                    callback(data.responseData.feed);
-                  }
+                    url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(url),
+                    dataType: 'json',
+                    crossdomain: true,
+                    type: 'GET',
+                    beforeSend: function(){
+                        
+                    },
+                    success: function(data) {
+                      $("#news").css("visibility", "visible");
+                      callback(data.responseData.feed);
+                    },
+                    complete: function(){
+                    },
+                    error: function(a, b){
+                        alert(a + ":" + b);
+                    }
                 });
             }
         </script>
